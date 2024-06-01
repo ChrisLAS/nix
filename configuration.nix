@@ -8,12 +8,29 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      /home/user/build/musnix
+      #./earlyoom.nix
+      #./oom.nix
+      /home/chrisf/build/musnix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # OOM configuration:
+  systemd = {
+    # Create a separate slice for nix-daemon that is
+    # memory-managed by the userspace systemd-oomd killer
+    slices."nix-daemon".sliceConfig = {
+      ManagedOOMMemoryPressure = "kill";
+      ManagedOOMMemoryPressureLimit = "95%";
+    };
+    services."nix-daemon".serviceConfig.Slice = "nix-daemon.slice";
+
+    # If a kernel-level OOM event does occur anyway,
+    # strongly prefer killing nix-daemon child processes
+    services."nix-daemon".serviceConfig.OOMScoreAdjust = 1000;
+  };
 
   networking.hostName = "rvbee"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -52,8 +69,8 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   programs.dconf.enable = true;
 
@@ -61,10 +78,13 @@
   security.polkit.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
+
+ services.xserver.xkb.layout = "us";
+
+ # services.xserver = {
+ #   layout = "us";
+ #   xkbVariant = "";
+ # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -93,16 +113,26 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
+  users.users.chrisf = {
     isNormalUser = true;
     shell = pkgs.fish;
-    description = "Main User";
+    description = "Chris Fisher";
     extraGroups = [ "networkmanager" "wheel" "adbusers" "libvirtd" "video" "render" "audio" ];
     packages = with pkgs; [
     #  thunderbird
     ];
   };
 
+ # Enable virtualisation
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  # Enable VirtualBox 10-27-23
+
+ # virtualisation.virtualbox.host.enable = true;
+ # boot.kernelParams = [ "vboxdrv.load_state=1" ];
+ # users.extraGroups.vboxusers.members = [ "chrisf" ];
 
   # Lets get Fish Shell - CF 6-1-22
 
@@ -137,12 +167,22 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
      libsForQt5.ktexteditor
+     libsForQt5.yakuake
+     kdePackages.kdenlive
+     kdePackages.ark
+     kdePackages.kdeconnect-kde
+     kdePackages.ktorrent
+     krita
+     kdePackages.discover
+     kdePackages.kfind
+     kdePackages.kleopatra
+     kdePackages.filelight
+     kdePackages.isoimagewriter
      kate
      htop
      nixFlakes
      pkgs.tailscale
      btop
-     htop
      btrfs-progs
      btrfs-snap
      pciutils
@@ -157,12 +197,14 @@
      fuse
      fuse3
      steam-run
+     rustdesk-flutter
      steam
      appimage-run
      android-udev-rules
      adb-sync
      git
      jmtpfs
+     angryipscanner
      gnumake
      unzip
      zip
@@ -267,6 +309,9 @@
      tree
      lsof
      lshw
+     python3
+     qemu
+     virt-manager
   ];
 
   # Wayland support for Slack
@@ -304,6 +349,8 @@
 
   # Enable musnix
   musnix.enable = true;
+
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
