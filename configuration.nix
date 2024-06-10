@@ -5,13 +5,13 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      #./earlyoom.nix
-      #./oom.nix
-      /home/chrisf/build/musnix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    #./earlyoom.nix
+    #./oom.nix
+    /home/chrisf/build/musnix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -79,12 +79,12 @@
 
   # Configure keymap in X11
 
- services.xserver.xkb.layout = "us";
+  services.xserver.xkb.layout = "us";
 
- # services.xserver = {
- #   layout = "us";
- #   xkbVariant = "";
- # };
+  # services.xserver = {
+  #   layout = "us";
+  #   xkbVariant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -110,29 +110,35 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chrisf = {
     isNormalUser = true;
     shell = pkgs.fish;
     description = "Chris Fisher";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" "libvirtd" "video" "render" "audio" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "adbusers"
+      "libvirtd"
+      "video"
+      "render"
+      "audio"
+    ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
- # Enable virtualisation
+  # Enable virtualisation
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
   # Enable VirtualBox 10-27-23
 
- # virtualisation.virtualbox.host.enable = true;
- # boot.kernelParams = [ "vboxdrv.load_state=1" ];
- # users.extraGroups.vboxusers.members = [ "chrisf" ];
+  # virtualisation.virtualbox.host.enable = true;
+  # boot.kernelParams = [ "vboxdrv.load_state=1" ];
+  # users.extraGroups.vboxusers.members = [ "chrisf" ];
 
   # Lets get Fish Shell - CF 6-1-22
 
@@ -156,162 +162,164 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-
   # Enable Nix experimental features and Flakes 4-17-24
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-     libsForQt5.ktexteditor
-     libsForQt5.yakuake
-     kdePackages.kdenlive
-     kdePackages.ark
-     kdePackages.kdeconnect-kde
-     kdePackages.ktorrent
-     krita
-     kdePackages.discover
-     kdePackages.kfind
-     kdePackages.kleopatra
-     kdePackages.filelight
-     kdePackages.isoimagewriter
-     kate
-     htop
-     nixFlakes
-     pkgs.tailscale
-     btop
-     btrfs-progs
-     btrfs-snap
-     pciutils
-     magic-wormhole
-     yt-dlp
-     pkgs.cifs-utils
-     pkgs.samba
-     neofetch
-     nmap
-     mosh
-     ark
-     fuse
-     fuse3
-     steam-run
-     rustdesk-flutter
-     steam
-     appimage-run
-     android-udev-rules
-     adb-sync
-     git
-     jmtpfs
-     angryipscanner
-     gnumake
-     unzip
-     zip
-     gnupg
-     pkgs.restic
-     pkgs.autorestic
-     pkgs.restique
-     pkgs.nextcloud-client
-     google-chrome
-     quickemu
-     quickgui
-     x32edit
-     junction
-     distrobox
-     tor-browser
-     v4l-utils
-     v4l2-relayd
-     libv4l
-     sunshine
-     logitech-udev-rules
-     ltunify
-     solaar
-     gtop
-     ventoy
-     wine-wayland
-     winetricks
-     wineasio
-     bottles-unwrapped
-     yarn
-     cool-retro-term
-     wayland-protocols
-     wayland-scanner
-     wayland
-     avahi
-     mesa
-     libffi
-     libevdev
-     libcap
-     libdrm
-     xorg.libXrandr
-     xorg.libxcb
-     ffmpeg-full
-     libevdev
-     libpulseaudio
-     xorg.libX11
-     pkgs.xorg.libxcb
-     xorg.libXfixes
-     libva
-     libvdpau
-     pkgs.moonlight-qt
-     pkgs.sunshine
-     firefox
-     slack
-     telegram-desktop
-     nheko
-     libsForQt5.neochat
-     element-desktop-wayland
-     mpv
-     haruna
-     trayscale
-     reaper
-     lame
-     xdotool
-     pwvucontrol
-     easyeffects
-     pipecontrol
-     wireplumber
-     pavucontrol
-     ncpamixer
-     carla
-     qjackctl
-     qpwgraph
-     libsForQt5.plasma-browser-integration
-     sonobus
-     vlc
-     typora
-     neovim
-     vimPlugins.LazyVim
-     maestral-gui
-     pkgs.amdvlk
-     pkgs.driversi686Linux.amdvlk
-     element-desktop
-     gh
-     gitui
-     cmake
-     ispell
-     gcc
-     go
-     aspell
-     gnumake
-     patchelf
-     alacritty
-     glxinfo
-     libnotify
-     yt-dlp
-     binutils
-     dstat
-     file
-     iotop
-     pciutils
-     zellij
-     tree
-     lsof
-     lshw
-     python3
-     qemu
-     virt-manager
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    libsForQt5.ktexteditor
+    libsForQt5.yakuake
+    kdePackages.kdenlive
+    kdePackages.ark
+    kdePackages.kdeconnect-kde
+    kdePackages.ktorrent
+    krita
+    kdePackages.discover
+    kdePackages.kfind
+    kdePackages.kleopatra
+    kdePackages.filelight
+    kdePackages.isoimagewriter
+    kate
+    htop
+    nixFlakes
+    pkgs.tailscale
+    btop
+    btrfs-progs
+    btrfs-snap
+    pciutils
+    magic-wormhole
+    yt-dlp
+    pkgs.cifs-utils
+    pkgs.samba
+    neofetch
+    nmap
+    mosh
+    ark
+    fuse
+    fuse3
+    steam-run
+    rustdesk-flutter
+    steam
+    appimage-run
+    android-udev-rules
+    adb-sync
+    git
+    jmtpfs
+    angryipscanner
+    gnumake
+    unzip
+    zip
+    gnupg
+    pkgs.restic
+    pkgs.autorestic
+    pkgs.restique
+    pkgs.nextcloud-client
+    google-chrome
+    quickemu
+    quickgui
+    x32edit
+    junction
+    distrobox
+    tor-browser
+    v4l-utils
+    v4l2-relayd
+    libv4l
+    sunshine
+    logitech-udev-rules
+    ltunify
+    solaar
+    gtop
+    ventoy
+    wine-wayland
+    winetricks
+    wineasio
+    bottles-unwrapped
+    yarn
+    cool-retro-term
+    wayland-protocols
+    wayland-scanner
+    wayland
+    avahi
+    mesa
+    libffi
+    libevdev
+    libcap
+    libdrm
+    xorg.libXrandr
+    xorg.libxcb
+    ffmpeg-full
+    libevdev
+    libpulseaudio
+    xorg.libX11
+    pkgs.xorg.libxcb
+    xorg.libXfixes
+    libva
+    libvdpau
+    pkgs.moonlight-qt
+    pkgs.sunshine
+    firefox
+    slack
+    telegram-desktop
+    nheko
+    libsForQt5.neochat
+    element-desktop-wayland
+    mpv
+    haruna
+    trayscale
+    reaper
+    lame
+    xdotool
+    pwvucontrol
+    easyeffects
+    pipecontrol
+    wireplumber
+    pavucontrol
+    ncpamixer
+    carla
+    qjackctl
+    qpwgraph
+    libsForQt5.plasma-browser-integration
+    sonobus
+    vlc
+    typora
+    neovim
+    vimPlugins.LazyVim
+    maestral-gui
+    pkgs.amdvlk
+    pkgs.driversi686Linux.amdvlk
+    element-desktop
+    gh
+    gitui
+    cmake
+    ispell
+    gcc
+    go
+    aspell
+    gnumake
+    patchelf
+    alacritty
+    glxinfo
+    libnotify
+    yt-dlp
+    binutils
+    dstat
+    file
+    iotop
+    pciutils
+    zellij
+    tree
+    lsof
+    lshw
+    python3
+    qemu
+    virt-manager
   ];
 
   # Wayland support for Slack
@@ -327,7 +335,7 @@
   };
 
   # Passwords are for Losers
-    security = {
+  security = {
     sudo.wheelNeedsPassword = false;
   };
 
@@ -342,21 +350,19 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-   services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Enable Tailscale Service - CF 6-3-22
-   services.tailscale.enable = true;
+  services.tailscale.enable = true;
 
   # Enable musnix
   musnix.enable = true;
-
-
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-   networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
