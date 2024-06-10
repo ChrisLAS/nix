@@ -10,7 +10,7 @@
     ./hardware-configuration.nix
     #./earlyoom.nix
     #./oom.nix
-    /home/chrisf/build/musnix
+    # /home/chrisf/build/musnix  # Now imported via flake.
   ];
 
   # Bootloader.

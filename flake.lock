@@ -1,0 +1,69 @@
+{
+  "nodes": {
+    "companion": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1718010722,
+        "narHash": "sha256-HZqZx2TgJVCM3Frsi4cyTp1ciDCz1lUVnNKYTt8rD5w=",
+        "owner": "noblepayne",
+        "repo": "bitfocus-companion-flake",
+        "rev": "a2034132e6467b2a24658ad1a618065e8d236dda",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noblepayne",
+        "repo": "bitfocus-companion-flake",
+        "type": "github"
+      }
+    },
+    "musnix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1717893947,
+        "narHash": "sha256-gUIaYP1fv0L/2fjDbaBirxC4rShkQC6eRJX9pJa0OtI=",
+        "owner": "musnix",
+        "repo": "musnix",
+        "rev": "e7b2b8952e0d810c1f1c989b52056a0eb4b2fd5f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "musnix",
+        "repo": "musnix",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1717952948,
+        "narHash": "sha256-mJi4/gjiwQlSaxjA6AusXBN/6rQRaPCycR7bd8fydnQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2819fffa7fa42156680f0d282c60d81e8fb185b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "companion": "companion",
+        "musnix": "musnix",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
