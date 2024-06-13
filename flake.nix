@@ -21,15 +21,10 @@
         modules = [
           # Add musnix.
           musnix.nixosModules.musnix
+          # Add Bitfocus Companion.
+          companion.nixosModules.default
           # Load main configuration.
           ./configuration.nix
-          # Inject bitfocus companion in to global packages.
-          (
-            { pkgs, ... }:
-            {
-              environment.systemPackages = [ companion.packages.${pkgs.system}.companion ];
-            }
-          )
         ];
       };
     };
