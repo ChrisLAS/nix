@@ -71,7 +71,8 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+#  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
   programs.dconf.enable = true;
 
   # Enable PolKit
@@ -128,6 +129,20 @@
       #  thunderbird
     ];
   };
+
+  #----=[ Fonts ]=----#
+
+  fonts.packages = with pkgs; [
+  noto-fonts
+  ubuntu_font_family
+  noto-fonts-emoji
+  liberation_ttf
+  fira-code
+  fira-code-symbols
+  mplus-outline-fonts.githubRelease
+  dina-font
+  fira
+];
 
   # Enable virtualisation
 
@@ -320,6 +335,9 @@
     python3
     qemu
     virt-manager
+    libsForQt5.qt5.qtwebsockets
+    x32edit
+    nixfmt-rfc-style
   ];
 
   # Wayland support for Slack
@@ -333,6 +351,9 @@
     dates = "weekly";
     options = "--delete-older-than 15d";
   };
+
+  # Enable Netdata
+  services.netdata.enable = true;
 
   # Passwords are for Losers
   security = {
