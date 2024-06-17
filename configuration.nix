@@ -17,6 +17,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kernel Fanciness
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # OOM configuration:
   systemd = {
     # Create a separate slice for nix-daemon that is
@@ -71,7 +74,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
-#  services.xserver.desktopManager.plasma5.enable = true;
+  #  services.xserver.desktopManager.plasma5.enable = true;
   services.desktopManager.plasma6.enable = true;
   programs.dconf.enable = true;
 
@@ -133,16 +136,16 @@
   #----=[ Fonts ]=----#
 
   fonts.packages = with pkgs; [
-  noto-fonts
-  ubuntu_font_family
-  noto-fonts-emoji
-  liberation_ttf
-  fira-code
-  fira-code-symbols
-  mplus-outline-fonts.githubRelease
-  dina-font
-  fira
-];
+    noto-fonts
+    ubuntu_font_family
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    fira
+  ];
 
   # Enable virtualisation
 
@@ -338,6 +341,8 @@
     libsForQt5.qt5.qtwebsockets
     x32edit
     nixfmt-rfc-style
+    qownnotes
+    roc-toolkit
   ];
 
   # Wayland support for Slack
